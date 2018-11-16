@@ -1,0 +1,214 @@
+<script>
+  // function Person(name, age) {
+  //   this.name = name;                // 添加name属性
+  //   this.age = age;                  // 添加age属性
+  //   this.sayHello = function () {    // 添加sayHello()方法
+  //     console.log('你好，我是' + this.name);
+  //   };
+  // }
+  // var p1 = new Person('张三', 18);
+  // var p2 = new Person('李四', 19);
+  // console.log(p1);                  // 输出结果：Person {name: "张三", age: 18}
+  // console.log(p2);                  // 输出结果：Person {name: "李四", age: 19}
+  // p1.sayHello();                    // 输出结果：你好，我是 张三
+  // console.log(p1.constructor);      // 输出结果：function Person(name, age) ……
+  // // 定义类---ES6新增
+  // class Student {
+  //   //仅属性使用构造函数
+  //    constructor (name, age, gender) {    // 构造方法
+  //     this.name = name;                  // 添加name属性
+  //     this.age = age;                    // 添加age属性
+  //     this.gender = gender;              // 添加gender属性
+  //   }
+  //   //函数独立列出，不用function关键字
+  //   introduce() {                        // 定义introduce()方法
+  //     console.log('我是' + this.name + '，今年' + this.age + '岁。');
+  //   }
+  // }
+  // // 实例化时会自动调用constructor()构造方法
+  // var st = new Student('王五', 19, '男');
+  // st.introduce();    // 输出结果：我是王五，今年19岁。
+
+  // 商品
+  // function Commodity(id, CommodityName, price,) {
+  //     this.id = id;                // 添加name属性
+  //     this.CommodityName = CommodityName; 
+  //     this.price = price; 
+  //     this.number = number;                 // 添加age属性
+  //     this.sayHello = function () {    // 添加sayHello()方法
+  //       console.log('ID:' + this.id);
+  //     };
+  //   }
+  //   class StudentCommodity {
+  //     //仅属性使用构造函数
+  //      constructor (id, CommodityName, price,number) {    // 构造方法
+  //       this.id = id;                
+  //       this.CommodityName = CommodityName;                 
+  //       this.price = price;     
+  //       this.number = number;            
+  //     }
+  //     //函数独立列出，不用function关键字
+  //     introduce() {                        // 定义introduce()方法
+  //       console.log('ID：' + this.id + ',商品名称:' + this.CommodityName + ',价格：'+this.price+'元,数量：'+this.number+'个');
+  //     }
+  //   }
+  //   // 实例化时会自动调用constructor()构造方法
+  //   var st = new StudentCommodity('0001','苹2果', '15',20);
+  //   st.introduce();  
+
+  // 列表Order
+  // function Order(CommodityName,number) {             
+  //     this.CommodityName = CommodityName; 
+  //     this.number = number;                
+  //     this.sayHello = function () {    // 添加sayHello()方法
+  //       console.log('商品:' + this.CommodityName);
+  //     };
+  //   }
+  //   class StudentOrder {
+  //     //仅属性使用构造函数
+  //      constructor (CommodityName,number) {    // 构造方法              
+  //       this.CommodityName = CommodityName;                    
+  //       this.number = number;            
+  //     }
+  //     //函数独立列出，不用function关键字
+  //     introduce() {                        // 定义introduce()方法
+  //       console.log('商品名称:' + this.CommodityName +'，数量：'+this.number+'个');
+  //     }
+  //   }
+  //    实例化时会自动调用constructor()构造方法
+  //   var st = new StudentOrder('粒子',20);
+  //   st.introduce();  
+
+  //  product
+
+  class product {
+    constructor(id, title, price, imgSrc) {
+      // 商品类成员  
+      this.id = id;
+      this.title = title;
+      this.price = price;
+      this.imgSrc = imgSrc;
+    }
+  }
+  // 订单类2
+  class Order {
+    constructor(product, qty) {
+      // 订单类成员
+      this.id = product.id;
+      this.title = product.title;
+      this.price = product.price;
+      this.imgSrc = product.imgSrc
+      this.qty = qty;
+    }
+  }
+
+  // 购物车数据类
+  class CartData {
+    constructor() {
+      this.orderList = new Array();
+      this.units = 0;
+      this.totalQty = 0;
+      this.totalAmount = 0;
+    }
+  }
+
+  // 函数定义--将某个订单order，加入购物车
+  function addtoCart(order) {
+    var flag = true;//将假设flag是假，代表当前状态是新商品
+    for (const i in MyCart.orderList) {
+      if (order.id == MyCart.orderList[i].id) {
+        flag = false;//修改状态，是老商品
+        //新增对于的qty
+        MyCart.orderList[i].qty += order.qty;
+        break;
+      }
+    }
+    if (flag) {
+      //order是购物车中的新样品，给样品数++
+      MyCart.orderList.push(order);
+      MyCart.units++;
+    }
+    MyCart.totalQty += order.qty;
+    MyCart.totalAmount += order.price * order.qty;
+  }
+
+  // 访问商品对象
+  // console.log(product1);
+  // console.log(product2);
+  // // 访问商品对象属性
+  // console.log(product1.id);
+  // console.log(product2.id);
+  // // 下标形式访问商品对象
+  // console.log(product1['id']);
+  // console.log(product2['id']);
+  // 订单类
+  // class Order {
+  //   constructor(product, qty) {
+  //     // 订单类成员
+  //     this.product = product;
+  //     this.qty = qty;
+  //   }
+  // }
+  // 创建订单对象
+  // var Order1 = new Order(product1, 5);
+  // // 获得订单对象
+  // console.log(Order1);
+  // // 获得订单对象的protuct属性
+  // console.log(Order1.product);
+  // // 获得订单对象的product属性的二级属性title
+  // console.log(Order1.product.title);
+
+  // // 创建订单对象
+  // var Order2 = new Order(product2, 4);
+  // // 获得订单对象的product属性的二级属性price
+  // console.log(Order2.product.price);
+
+  //  商品对象实例
+  var product1 = new product('01', '30片巨补水 秋冬新款面膜', 99.90, 'images/01.jpg');
+  var product2 = new product('02', '新西兰进口白金版婴幼儿奶粉', 99.90, 'images/02.jpg');
+  var product3 = new product('03', '卡耐基经典 人性的弱点', 99.90, 'images/03.jpg');
+
+
+  var MyCart = new CartData();
+  // var order = new Order(product1, 10);
+  // MyCart.orderList.push(order);
+  // MyCart.units = 1;
+  // MyCart.totalQty = order.qty;
+  // MyCart.totalAmount = order.price * order.qty;
+ 
+  // 进入购物车mycart
+  var order = new Order(product1, 10);
+  addtoCart(order);//调用加入购物车
+  
+  order = new Order(product2, 10);
+  addtoCart(order);//调用加入购物车
+
+  order = new Order(product3, 10);
+  addtoCart(order);//调用加入购物车
+
+  console.log(MyCart);
+// order = new Order(product2, 10);
+// addtoCart(order);
+
+// var stList=new Array();
+// stList.push(Order2);
+// console.log(stList);
+// 
+//   var array=[new Order(product1),new Order(product2)];
+//   console.log(array[0].title);
+//   console.log(array);
+
+//   class CartData{
+//     constructor(){
+//       this.orderList=new Array();
+//       this.units=0;
+//       this.totalQty=0;
+//       this.totalAmount=0;
+//     }
+//     // 行为
+//   }
+//   var ct=new CartData();
+//   console.log(ct); 
+
+
+</script>
